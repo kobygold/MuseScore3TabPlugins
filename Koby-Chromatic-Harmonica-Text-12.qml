@@ -5,7 +5,7 @@
 //  This plugin is based on the Recorder-Tablature plugin by Fenjuh:
 //  https://github.com/Fenjuh/Recorder-Tablature
 //  which was a variation of Werner Schweer very famous recorder_fingering plugin.
-//  I've changed Fenjuh's code to support Diatonic Harmonica in the key of C, and write the hole numbers and arrows on a consistent line height.
+//  I've changed Fenjuh's code to support Chromatic Harmonica, and write the hole numbers on a consistent line height.
 //  I created the font annotations myself, and added them to the open source font "Secular One":
 //  https://fontmeme.com/fonts/secular-one-font/
 //
@@ -29,8 +29,8 @@ import MuseScore 3.0
 
 MuseScore {
       version: "2.0"
-      description: "Place Diatonic-Harmonica-C hole number and direction arrow under the notes"
-      menuPath: "Plugins.Diatonic-Harmonica-C"
+      description: "Place Chromatic-Harmonica hole number and sharp button (#) under the notes.\nN = blow\n(N) = draw\nN# = blow + button\n(N#) = draw + button"
+      menuPath: "Plugins.Koby-Chromatic-Harmonica-Text-12"
       pluginType: "dialog"
       
       id:window
@@ -78,8 +78,8 @@ MuseScore {
             }
         }
 
-      //                              C4      C4#     D4      D4#     E4      F4      F4#     G4      G4#     A4      A4#     B4      C5      C5#     D5      D5#     E5      F5      F5#     G5      G5#     A5      A5#     B5      C6      C6#     D6      D6#     E6      F6      F6#     G6      G6#     A6      A6#      B6       C7       C7#     
-      property variant fingerings : ["O\n1", "H\n1", "N\n1", "K\n1", "O\n2", "I\n2", "H\n2", "O\n3", "J\n3", "I\n3", "H\n3", "N\n3", "O\n4", "H\n4", "N\n4", "K\n4", "O\n5", "N\n5", "K\n5", "O\n6", "H\n6", "N\n6", "K\n6", "N\n7", "O\n7", "P\n7", "N\n8", "L\n8", "O\n8", "N\n9", "L\n9", "O\n9", "P\n9", "N\n10", "M\n10", "L\n10", "O\n10", "P\n10"]
+      //                             C4   C4#   D4     D4#     E4   F4     F4#     G4   G4#   A4     A4#     B4     C5   C5#   D5     D5#     E5   F5     F5#     G5   G5#   A5     A5#     B5     C6   C6#   D6     D6#     E6    F6      F6#      G6    G6#    A6      A6#      B6      C7
+      property variant fingerings : ["1", "#1", "(1)", "(#1)", "2", "(2)", "(#2)", "3", "#3", "(3)", "(#3)", "(4)", "4", "#5", "(5)", "(#5)", "6", "(6)", "(#6)", "7", "#7", "(7)", "(#7)", "(8)", "8", "#9", "(9)", "(#9)", "10", "(10)", "(#10)", "11", "#11", "(11)", "(#11)", "(12)", "12"]
       function placeTab(size){
             var cursor   = curScore.newCursor();
             cursor.staffIdx = 0; // start on first staff
