@@ -17,24 +17,72 @@
 //  the file LICENCE.GPL
 //=============================================================================
 
-import QtQuick 2.2
+import QtQuick 2.1
+import QtQuick.Dialogs 1.0
+import QtQuick.Controls 1.0
 import MuseScore 3.0
 
 MuseScore {
-   version: "3.4.2.1"
+   version: "2.0"
    description: qsTr("This plugin names notes as per your language setting (Above notes)")
    menuPath: "Plugins.Koby-Hebrew-Names-Above"
+	  
+	  pluginType: "dialog"
+	  
+	  id:window
+	  width: 200; height: 100;
 
-   // Small note name size is fraction of the full font size.
+	  Label {
+		id: textLabel
+		wrapMode: Text.WordWrap
+		text: qsTr("Font size:")
+		font.pointSize:11
+		anchors.left: window.left
+		anchors.top: window.top
+		anchors.leftMargin: 10
+		anchors.topMargin: 10
+		}
+
+	  SpinBox {
+		id:fontSize
+		anchors.top: window.top
+		anchors.left: textLabel.right
+		anchors.right: window.right
+		anchors.topMargin: 10
+		anchors.leftMargin: 10
+		anchors.rightMargin: 10
+		height: 25
+		font.pointSize: 11
+		minimumValue: 5
+		maximumValue: 30
+		value: 10
+		}
+
+	  Button {
+		id : buttonOk
+		text: qsTr("Ok")
+		anchors.bottom: window.bottom
+		anchors.left: window.left
+		anchors.bottomMargin: 10
+		anchors.leftMargin: 50
+		isDefault: true
+		onClicked: {
+			curScore.startCmd();
+			xRun(fontSize.value);
+			curScore.endCmd();
+			Qt.quit();
+			}
+		}
+		
+   // 'size' is the font size.
    property var fontSizeMini: 0.7;
 
-   function nameChord (notes, text, small) {
+   function nameChord (notes, text, size) {
       for (var i = 0; i < notes.length; i++) {
          var sep = "\n";   // change to "," if you want them horizontally (anybody?)
          if ( i > 0 )
             text.text = sep + text.text; // any but top note
-         if (small)
-             text.fontSize *= fontSizeMini
+         text.fontSize = size;
          if (typeof notes[i].tpc === "undefined") // like for grace notes ?!?
             return
          switch (notes[i].tpc) {
@@ -124,14 +172,14 @@ MuseScore {
       }  // end for note
    }
 
-   function renderGraceNoteNames (cursor, list, text, small) {
+   function renderGraceNoteNames (cursor, list, text, size) {
       if (list.length > 0) {     // Check for existence.
          // Now render grace note's names...
          for (var chordNum = 0; chordNum < list.length; chordNum++) {
             // iterate through all grace chords
             var chord = list[chordNum];
             // Set note text, grace notes are shown a bit smaller
-            nameChord(chord.notes, text, small)
+            nameChord(chord.notes, text, size)
             cursor.add(text)
             // X position the note name over the grace chord
             text.offsetX = chord.posX
@@ -142,12 +190,13 @@ MuseScore {
             // If we consume a STAFF_TEXT we must manufacture a new one.
             text = newElement(Element.LYRICS);    // Make another STAFF_TEXT
 			text.placement=Placement.ABOVE;
+			text.fontSize = size;
          }
       }
       return text
    }
 
-   onRun: {
+   function xRun(size){
       var cursor = curScore.newCursor();
       var startStaff;
       var endStaff;
@@ -186,6 +235,7 @@ MuseScore {
                if (cursor.element && cursor.element.type === Element.CHORD) {
                   var text = newElement(Element.LYRICS);      // Make a STAFF_TEXT
 				  text.placement=Placement.ABOVE;
+				  text.fontSize = size;
 
                   // First...we need to scan grace notes for existence and break them
                   // into their appropriate lists with the correct ordering of notes.
@@ -206,11 +256,11 @@ MuseScore {
                   }
 
                   // Next process the leading grace notes, should they exist...
-                  text = renderGraceNoteNames(cursor, leadingLifo, text, true)
+                  text = renderGraceNoteNames(cursor, leadingLifo, text, size)
 
                   // Now handle the note names on the main chord...
                   var notes = cursor.element.notes;
-                  nameChord(notes, text, false);
+                  nameChord(notes, text, size);
                   cursor.add(text);
 
                   switch (cursor.voice) {
@@ -219,9 +269,10 @@ MuseScore {
 
                   text = newElement(Element.LYRICS) // Make another STAFF_TEXT object
 				  text.placement=Placement.ABOVE;
+				  text.fontSize = size;
 
                   // Finally process trailing grace notes if they exist...
-                  text = renderGraceNoteNames(cursor, trailingFifo, text, true)
+                  text = renderGraceNoteNames(cursor, trailingFifo, text, size)
                } // end if CHORD
                cursor.next();
             } // end while segment
