@@ -57,6 +57,8 @@ Output - Chromatic Harmonica 16 Holes (Text Only format):
 
 Output - Trumpet:
 
+**Note:** For correct fingerings the instrument should be Bb Trumpet with 2 semitones offset (i.e. with "2-Major Second" transposition on the "Staff/Part Properties" page
+
 ![Tux, the GUI](/screenshots/screenshot-trumpet.png)
 
 Output - Euphonium (Baritone):

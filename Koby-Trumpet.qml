@@ -76,8 +76,9 @@ MuseScore {
             }
         }
 
-      //                               F3#                       G3                        G3#                       A3                        A3#                       B3                        C4                        C4#                       D4                        D4#                       E4                        F4                        F4#                       G4                        G4#                       A4                        A4#                       B4                        C5                        C5#                       D5                        D5#                       E5                        F5                        F5#                       G5                        G5#                       A5                        A5#                       B5                        C6                        C6#                       D6                        D6#                       E6                        F6                        F6#                       G6                        
+      //                              F3#                       G3                        G3#                       A3                        A3#                       B3                        C4                        C4#                       D4                        D4#                       E4                        F4                        F4#                       G4                        G4#                       A4                        A4#                       B4                        C5                        C5#                       D5                        D5#                       E5                        F5                        F5#                       G5                        G5#                       A5                        A5#                       B5                        C6                        C6#                       D6                        D6#                       E6                        F6                        F6#                       G6                        
       property variant fingerings : ["\u2778\n\u2777\n\u2776", "\u2778\n\u2461\n\u2776", "\u2778\n\u2777\n\u2460", "\u2462\n\u2777\n\u2776", "\u2462\n\u2461\n\u2776", "\u2462\n\u2777\n\u2460", "\u2462\n\u2461\n\u2460", "\u2778\n\u2777\n\u2776", "\u2778\n\u2461\n\u2776", "\u2778\n\u2777\n\u2460", "\u2462\n\u2777\n\u2776", "\u2462\n\u2461\n\u2776", "\u2462\n\u2777\n\u2460", "\u2462\n\u2461\n\u2460", "\u2778\n\u2777\n\u2460", "\u2462\n\u2777\n\u2776", "\u2462\n\u2461\n\u2776", "\u2462\n\u2777\n\u2460", "\u2462\n\u2461\n\u2460", "\u2462\n\u2777\n\u2776", "\u2462\n\u2461\n\u2776", "\u2462\n\u2777\n\u2460", "\u2462\n\u2461\n\u2460", "\u2462\n\u2461\n\u2776", "\u2462\n\u2777\n\u2460", "\u2462\n\u2461\n\u2460", "\u2778\n\u2777\n\u2460", "\u2462\n\u2777\n\u2776", "\u2462\n\u2461\n\u2776", "\u2462\n\u2777\n\u2460", "\u2462\n\u2461\n\u2460", "\u2462\n\u2777\n\u2776", "\u2462\n\u2461\n\u2776", "\u2462\n\u2777\n\u2460", "\u2462\n\u2461\n\u2460", "\u2462\n\u2461\n\u2776", "\u2462\n\u2777\n\u2460", "\u2462\n\u2461\n\u2460"]
+      property variant notenames  : ["F3#",                    "G3",                     "G3#",                    "A3",                     "A3#",                    "B3",                     "C4",                     "C4#",                    "D4",                     "D4#",                    "E4",                     "F4",                     "F4#",                    "G4",                     "G4#",                    "A4",                     "A4#",                    "B4",                     "C5",                     "C5#",                    "D5",                     "D5#",                    "E5",                     "F5",                     "F5#",                    "G5",                     "G5#",                    "A5",                     "A5#",                    "B5",                     "C6",                     "C6#",                    "D6",                     "D6#",                    "E6",                     "F6",                     "F6#",                    "G6"]
 
       function placeTab(size){
             var cursor   = curScore.newCursor();
@@ -87,12 +88,12 @@ MuseScore {
             while (cursor.segment) { // in end segment is null
                   if (cursor.element._name() == "Chord") {
                         var pitch = cursor.element.notes[0].pitch;
-                        var index = pitch - 54;
+                        var index = pitch - 54 + 2;  // add +2 because Bb Trumpet has as offset of 2 semitones
                         if(index >= 0 && index < fingerings.length){ 
                               var text = newElement(Element.LYRICS);
                               text.fontSize = size;
                               //text.fontFace = "KobyMusic";
-                              text.text = fingerings[index];
+                              text.text = notenames[index] + "\n" + fingerings[index];
 							  console.log(text.text);
                               //text.offsetY = -10;
                               //text.placement=Placement.BELOW;
