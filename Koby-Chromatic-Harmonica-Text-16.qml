@@ -92,7 +92,7 @@ MuseScore {
                         if(index >= 0 && index < fingerings.length){ 
                               var text = newElement(Element.LYRICS);
                               text.fontSize = size;
-                              text.fontFace = "Bravura"; //"KobyMusic";
+                              text.fontFace = "KobyMusic"; //"KobyMusic"; "Bravura";
                               text.text = fingerings[index];
 							  console.log(text.text);
                               //text.offsetY = -10;
