@@ -9,8 +9,14 @@ Requirements: MuseScore 3.x
 4. Go to Plugins menu > Plugin Manager > Check the plugins you want to add to the menu:
     - "Koby-Diatonic-Harmonica-C"
     - "Koby-Chromatic-Harmonica-Text-10"  (Text format, i.e. without arrows)
-    - "Koby-Chromatic-Harmonica-Text-12"  (Text format, i.e. without arrows)
     - "Koby-Chromatic-Harmonica-Text-16"  (Text format, i.e. without arrows)
+    - "Koby-Chromatic-Harmonica-A-Text-12"  (Text format, i.e. without arrows)
+    - "Koby-Chromatic-Harmonica-Bb-Text-12"  (Text format, i.e. without arrows)
+    - "Koby-Chromatic-Harmonica-C-Text-12"  (Text format, i.e. without arrows)
+    - "Koby-Chromatic-Harmonica-D-Text-12"  (Text format, i.e. without arrows)
+    - "Koby-Chromatic-Harmonica-E-Text-12"  (Text format, i.e. without arrows)
+    - "Koby-Chromatic-Harmonica-F-Text-12"  (Text format, i.e. without arrows)
+    - "Koby-Chromatic-Harmonica-G-Text-12"  (Text format, i.e. without arrows)
     - "Koby-Recorder"
     - "Koby-Trumpet"
     - "Koby-Euphonium(Baritone)"
@@ -47,7 +53,9 @@ Output - Chromatic Harmonica 10 Holes (Text Only format):
 
 ![Tux, the GUI](/screenshots/screenshot-chromatic-10.png)
 
-Output - Chromatic Harmonica 12 Holes (Text Only format):
+Output - Chromatic Harmonica 12 Holes (Text Only format), supports all common keys:
+
+![Tux, the GUI](/screenshots/screenshot-chromatic-12-menu.png)
 
 ![Tux, the GUI](/screenshots/screenshot-chromatic-12.png)
 
